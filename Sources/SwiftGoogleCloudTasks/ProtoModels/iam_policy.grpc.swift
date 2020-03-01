@@ -35,16 +35,16 @@ public protocol Google_Iam_V1_IAMPolicyService {
 }
 
 public final class Google_Iam_V1_IAMPolicyServiceClient: GRPCClient, Google_Iam_V1_IAMPolicyService {
-  public let channel: GRPCChannel
+  public let connection: ClientConnection
   public var defaultCallOptions: CallOptions
 
   /// Creates a client for the google.iam.v1.IAMPolicy service.
   ///
   /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
+  ///   - connection: `ClientConnection` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
-    self.channel = channel
+  public init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
+    self.connection = connection
     self.defaultCallOptions = defaultCallOptions
   }
 

@@ -15,7 +15,8 @@ let package = Package(
             targets: ["SwiftGoogleCloudTasks"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/grpc/grpc-swift.git", .branch("nio")),
+        // .package(url: "https://github.com/grpc/grpc-swift.git", .branch("nio")),
+        .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.0.0-alpha.6"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.7.0"),
         .package(url: "https://github.com/googleapis/google-auth-library-swift.git", from: "0.5.1")
     ],

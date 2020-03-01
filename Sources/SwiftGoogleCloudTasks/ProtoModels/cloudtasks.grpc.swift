@@ -48,16 +48,16 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksService {
 }
 
 public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClient, Google_Cloud_Tasks_V2beta3_CloudTasksService {
-  public let channel: GRPCChannel
+  public let connection: ClientConnection
   public var defaultCallOptions: CallOptions
 
   /// Creates a client for the google.cloud.tasks.v2beta3.CloudTasks service.
   ///
   /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
+  ///   - connection: `ClientConnection` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
-    self.channel = channel
+  public init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
+    self.connection = connection
     self.defaultCallOptions = defaultCallOptions
   }
 
@@ -401,27 +401,27 @@ extension Google_Cloud_Tasks_V2beta3_CloudTasksProvider {
 
 
 /// Provides conformance to `GRPCPayload` for the request and response messages
-extension Google_Cloud_Tasks_V2beta3_ListQueuesRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ListQueuesResponse: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_GetQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_Queue: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_CreateQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_UpdateQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_DeleteQueueRequest: GRPCProtobufPayload {}
-extension SwiftProtobuf.Google_Protobuf_Empty: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_PurgeQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_PauseQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ResumeQueueRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
-extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ListTasksRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ListTasksResponse: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_GetTaskRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_Task: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_CreateTaskRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_DeleteTaskRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_RunTaskRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_ListQueuesRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_ListQueuesResponse: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_GetQueueRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_Queue: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_CreateQueueRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_UpdateQueueRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_DeleteQueueRequest: GRPCProtobufPayload {}
+//extension SwiftProtobuf.Google_Protobuf_Empty: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_PurgeQueueRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_PauseQueueRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_ResumeQueueRequest: GRPCProtobufPayload {}
+//extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
+//extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
+//extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
+//extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
+//extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_ListTasksRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_ListTasksResponse: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_GetTaskRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_Task: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_CreateTaskRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_DeleteTaskRequest: GRPCProtobufPayload {}
+//extension Google_Cloud_Tasks_V2beta3_RunTaskRequest: GRPCProtobufPayload {}
 

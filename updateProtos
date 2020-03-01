@@ -6,12 +6,14 @@ mkdir -p ProtocolBuffers/ && cd ProtocolBuffers/
 
 # 1 - Fetch GRPC Swift & Generate GRPC Plugin
 #     The plugin must be ready at .build/release/protoc-gen-grpc-swift
-# git clone https://github.com/grpc/grpc-swift.git
+#git clone https://github.com/grpc/grpc-swift.git
 cd grpc-swift
 pwd
 # git fetch origin nio
 # git checkout origin/nio
-# make plugins
+git fetch --all --tags
+git checkout 1.0.0-alpha.6
+make plugins
 
 
 # 2 - Fetch Google Apis for Protocol Buffers files
@@ -19,6 +21,7 @@ git clone https://github.com/googleapis/googleapis.git
 mkdir -p ../GeneratedSources/GoogleCloudTasks/
 cd ../googleapis
 pwd
+
 protoc google/cloud/tasks/v2beta3/*.proto \
 		--plugin=../grpc-swift/.build/release/protoc-gen-swift \
 		--swift_opt=Visibility=Public \
@@ -38,27 +41,25 @@ protoc google/iam/v1/*.proto \
 		--grpc-swift_opt=Visibility=Public \
 		--grpc-swift_out=../GeneratedSources/GoogleCloudTasks/	
 
-
-
 # Type 
-# protoc google/type/*.proto \
-# 		--plugin=../grpc-swift/.build/release/protoc-gen-swift \
-# 		--swift_opt=Visibility=Public \
-# 		--swift_out=../GeneratedSources/GoogleCloudTasks/ 
-# protoc google/type/*.proto \
-# 		--plugin=../grpc-swift/.build/release/protoc-gen-grpc-swift \
-# 		--grpc-swift_opt=Visibility=Public \
-# 		--grpc-swift_out=../GeneratedSources/GoogleCloudTasks/	
+protoc google/type/*.proto \
+		--plugin=../grpc-swift/.build/release/protoc-gen-swift \
+		--swift_opt=Visibility=Public \
+		--swift_out=../GeneratedSources/GoogleCloudTasks/ 
+protoc google/type/*.proto \
+		--plugin=../grpc-swift/.build/release/protoc-gen-grpc-swift \
+		--grpc-swift_opt=Visibility=Public \
+		--grpc-swift_out=../GeneratedSources/GoogleCloudTasks/	
 
-
-# protoc google/rpc/*.proto \
-# 		--plugin=../grpc-swift/.build/release/protoc-gen-swift \
-# 		--swift_opt=Visibility=Public \
-# 		--swift_out=../GeneratedSources/GoogleCloudTasks/ 
-# protoc google/rpc/*.proto \
-# 		--plugin=../grpc-swift/.build/release/protoc-gen-grpc-swift \
-# 		--grpc-swift_opt=Visibility=Public \
-# 		--grpc-swift_out=../GeneratedSources/GoogleCloudTasks/						
+# RPC
+protoc google/rpc/*.proto \
+		--plugin=../grpc-swift/.build/release/protoc-gen-swift \
+		--swift_opt=Visibility=Public \
+		--swift_out=../GeneratedSources/GoogleCloudTasks/ 
+protoc google/rpc/*.proto \
+		--plugin=../grpc-swift/.build/release/protoc-gen-grpc-swift \
+		--grpc-swift_opt=Visibility=Public \
+		--grpc-swift_out=../GeneratedSources/GoogleCloudTasks/						
 
 
 # protoc google/protobuf/*.proto \
@@ -73,8 +74,8 @@ protoc google/iam/v1/*.proto \
 mkdir -p ../../Sources/SwiftGoogleCloudTasks/ProtoModels
 cp ../GeneratedSources/GoogleCloudTasks/google/cloud/tasks/v2beta3/* ../../Sources/SwiftGoogleCloudTasks/ProtoModels/
 cp ../GeneratedSources/GoogleCloudTasks/google/iam/v1/* ../../Sources/SwiftGoogleCloudTasks/ProtoModels/
-cp ../GeneratedSources/GoogleCloudTasks/google/rpc/* ../../Sources/SwiftGoogleCloudTasks/ProtoModels/
 cp ../GeneratedSources/GoogleCloudTasks/google/type/* ../../Sources/SwiftGoogleCloudTasks/ProtoModels/
+cp ../GeneratedSources/GoogleCloudTasks/google/rpc/* ../../Sources/SwiftGoogleCloudTasks/ProtoModels/
 
 printf "\e[32mDone!\e[m\n"		
 

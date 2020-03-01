@@ -32,9 +32,9 @@
         "package": "GRPC",
         "repositoryURL": "https://github.com/grpc/grpc-swift.git",
         "state": {
-          "branch": "nio",
-          "revision": "38484c0b0eb5726dc61d570c0c378a2cc2af56c8",
-          "version": null
+          "branch": null,
+          "revision": "be70633c91d722496e5fcb225f822edbd5c36a5a",
+          "version": "1.0.0-alpha.9"
         }
       },
       {
