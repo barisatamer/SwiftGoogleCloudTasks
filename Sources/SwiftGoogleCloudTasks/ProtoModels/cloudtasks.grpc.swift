@@ -48,16 +48,16 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksService {
 }
 
 public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClient, Google_Cloud_Tasks_V2beta3_CloudTasksService {
-  public let connection: ClientConnection
+  public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions
 
   /// Creates a client for the google.cloud.tasks.v2beta3.CloudTasks service.
   ///
   /// - Parameters:
-  ///   - connection: `ClientConnection` to the service host.
+  ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
-    self.connection = connection
+  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
 

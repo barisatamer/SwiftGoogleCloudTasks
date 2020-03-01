@@ -33,7 +33,7 @@
         "repositoryURL": "https://github.com/grpc/grpc-swift.git",
         "state": {
           "branch": "nio",
-          "revision": "e3ab183d95a2ee77929240e23b119426d581c821",
+          "revision": "38484c0b0eb5726dc61d570c0c378a2cc2af56c8",
           "version": null
         }
       },
