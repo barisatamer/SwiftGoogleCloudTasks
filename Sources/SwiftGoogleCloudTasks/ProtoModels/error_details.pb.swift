@@ -6,7 +6,7 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
-// Copyright 2019 Google LLC.
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -139,7 +139,7 @@ public struct Google_Rpc_QuotaFailure {
 ///
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it
 /// is not enabled:
-///     { "type":   "API_DISABLED"
+///     { "reason": "API_DISABLED"
 ///       "domain": "googleapis.com"
 ///       "metadata": {
 ///         "resource": "projects/123",
@@ -150,10 +150,10 @@ public struct Google_Rpc_QuotaFailure {
 ///
 /// Example of an error that is returned when attempting to create a Spanner
 /// instance in a region that is out of stock:
-///     { "type":   "STOCKOUT"
+///     { "reason": "STOCKOUT"
 ///       "domain": "spanner.googleapis.com",
 ///       "metadata": {
-///         "availableRegions": ""us-central1,us-east2"
+///         "availableRegions": "us-central1,us-east2"
 ///       }
 ///     }
 public struct Google_Rpc_ErrorInfo {
@@ -161,13 +161,13 @@ public struct Google_Rpc_ErrorInfo {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The type of the error. This is a constant value that identifies the
-  /// proximate cause of the error. Error types are unique within a particular
-  /// source of errors. This should be at most 63 characters and match
+  /// The reason of the error. This is a constant value that identifies the
+  /// proximate cause of the error. Error reasons are unique within a particular
+  /// domain of errors. This should be at most 63 characters and match
   /// /[A-Z0-9_]+/.
-  public var type: String = String()
+  public var reason: String = String()
 
-  /// The logical grouping to which the "type" belongs.  Often "domain" will
+  /// The logical grouping to which the "reason" belongs.  Often "domain" will
   /// contain the registered service name of the tool or product that is the
   /// source of the error. Example: "pubsub.googleapis.com". If the error is
   /// common across many APIs, the first segment of the example above will be
@@ -509,7 +509,7 @@ extension Google_Rpc_QuotaFailure.Violation: SwiftProtobuf.Message, SwiftProtobu
 extension Google_Rpc_ErrorInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ErrorInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "type"),
+    1: .same(proto: "reason"),
     2: .same(proto: "domain"),
     3: .same(proto: "metadata"),
   ]
@@ -517,7 +517,7 @@ extension Google_Rpc_ErrorInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.type)
+      case 1: try decoder.decodeSingularStringField(value: &self.reason)
       case 2: try decoder.decodeSingularStringField(value: &self.domain)
       case 3: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.metadata)
       default: break
@@ -526,8 +526,8 @@ extension Google_Rpc_ErrorInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.type.isEmpty {
-      try visitor.visitSingularStringField(value: self.type, fieldNumber: 1)
+    if !self.reason.isEmpty {
+      try visitor.visitSingularStringField(value: self.reason, fieldNumber: 1)
     }
     if !self.domain.isEmpty {
       try visitor.visitSingularStringField(value: self.domain, fieldNumber: 2)
@@ -539,7 +539,7 @@ extension Google_Rpc_ErrorInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 
   public static func ==(lhs: Google_Rpc_ErrorInfo, rhs: Google_Rpc_ErrorInfo) -> Bool {
-    if lhs.type != rhs.type {return false}
+    if lhs.reason != rhs.reason {return false}
     if lhs.domain != rhs.domain {return false}
     if lhs.metadata != rhs.metadata {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

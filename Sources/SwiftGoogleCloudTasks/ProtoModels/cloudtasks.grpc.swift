@@ -27,8 +27,8 @@ import NIOHTTP1
 import SwiftProtobuf
 
 
-/// Usage: instantiate Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient, then call methods of this protocol to make API calls.
-public protocol Google_Cloud_Tasks_V2beta3_CloudTasksService {
+/// Usage: instantiate Google_Cloud_Tasks_V2beta3_CloudTasksClient, then call methods of this protocol to make API calls.
+public protocol Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol {
   func listQueues(_ request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse>
   func getQueue(_ request: Google_Cloud_Tasks_V2beta3_GetQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
   func createQueue(_ request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
@@ -47,21 +47,23 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksService {
   func runTask(_ request: Google_Cloud_Tasks_V2beta3_RunTaskRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
 }
 
-public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClient, Google_Cloud_Tasks_V2beta3_CloudTasksService {
-  public let connection: ClientConnection
+public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol {
+  public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions
 
   /// Creates a client for the google.cloud.tasks.v2beta3.CloudTasks service.
   ///
   /// - Parameters:
-  ///   - connection: `ClientConnection` to the service host.
+  ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
-    self.connection = connection
+  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
 
-  /// Asynchronous unary call to ListQueues.
+  /// Lists queues.
+  ///
+  /// Queues are returned in lexicographical order.
   ///
   /// - Parameters:
   ///   - request: Request to send to ListQueues.
@@ -73,7 +75,7 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to GetQueue.
+  /// Gets a queue.
   ///
   /// - Parameters:
   ///   - request: Request to send to GetQueue.
@@ -85,7 +87,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to CreateQueue.
+  /// Creates a queue.
+  ///
+  /// Queues created with this method allow tasks to live for a maximum of 31
+  /// days. After a task is 31 days old, the task will be deleted regardless of whether
+  /// it was dispatched or not.
+  ///
+  /// WARNING: Using this method may have unintended side effects if you are
+  /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+  /// Read
+  /// [Overview of Queue Management and
+  /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+  /// this method.
   ///
   /// - Parameters:
   ///   - request: Request to send to CreateQueue.
@@ -97,7 +110,21 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to UpdateQueue.
+  /// Updates a queue.
+  ///
+  /// This method creates the queue if it does not exist and updates
+  /// the queue if it does exist.
+  ///
+  /// Queues created with this method allow tasks to live for a maximum of 31
+  /// days. After a task is 31 days old, the task will be deleted regardless of whether
+  /// it was dispatched or not.
+  ///
+  /// WARNING: Using this method may have unintended side effects if you are
+  /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+  /// Read
+  /// [Overview of Queue Management and
+  /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+  /// this method.
   ///
   /// - Parameters:
   ///   - request: Request to send to UpdateQueue.
@@ -109,7 +136,19 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to DeleteQueue.
+  /// Deletes a queue.
+  ///
+  /// This command will delete the queue even if it has tasks in it.
+  ///
+  /// Note: If you delete a queue, a queue with the same name can't be created
+  /// for 7 days.
+  ///
+  /// WARNING: Using this method may have unintended side effects if you are
+  /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+  /// Read
+  /// [Overview of Queue Management and
+  /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+  /// this method.
   ///
   /// - Parameters:
   ///   - request: Request to send to DeleteQueue.
@@ -121,7 +160,12 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to PurgeQueue.
+  /// Purges a queue by deleting all of its tasks.
+  ///
+  /// All tasks created before this method is called are permanently deleted.
+  ///
+  /// Purge operations can take up to one minute to take effect. Tasks
+  /// might be dispatched before the purge takes effect. A purge is irreversible.
   ///
   /// - Parameters:
   ///   - request: Request to send to PurgeQueue.
@@ -133,7 +177,13 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to PauseQueue.
+  /// Pauses the queue.
+  ///
+  /// If a queue is paused then the system will stop dispatching tasks
+  /// until the queue is resumed via
+  /// [ResumeQueue][google.cloud.tasks.v2beta3.CloudTasks.ResumeQueue]. Tasks can still be added
+  /// when the queue is paused. A queue is paused if its
+  /// [state][google.cloud.tasks.v2beta3.Queue.state] is [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED].
   ///
   /// - Parameters:
   ///   - request: Request to send to PauseQueue.
@@ -145,7 +195,19 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to ResumeQueue.
+  /// Resume a queue.
+  ///
+  /// This method resumes a queue after it has been
+  /// [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED] or
+  /// [DISABLED][google.cloud.tasks.v2beta3.Queue.State.DISABLED]. The state of a queue is stored
+  /// in the queue's [state][google.cloud.tasks.v2beta3.Queue.state]; after calling this method it
+  /// will be set to [RUNNING][google.cloud.tasks.v2beta3.Queue.State.RUNNING].
+  ///
+  /// WARNING: Resuming many high-QPS queues at the same time can
+  /// lead to target overloading. If you are resuming high-QPS
+  /// queues, follow the 500/50/5 pattern described in
+  /// [Managing Cloud Tasks Scaling
+  /// Risks](https://cloud.google.com/tasks/docs/manage-cloud-task-scaling).
   ///
   /// - Parameters:
   ///   - request: Request to send to ResumeQueue.
@@ -157,7 +219,15 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to GetIamPolicy.
+  /// Gets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue].
+  /// Returns an empty policy if the resource exists and does not have a policy
+  /// set.
+  ///
+  /// Authorization requires the following
+  /// [Google IAM](https://cloud.google.com/iam) permission on the specified
+  /// resource parent:
+  ///
+  /// * `cloudtasks.queues.getIamPolicy`
   ///
   /// - Parameters:
   ///   - request: Request to send to GetIamPolicy.
@@ -169,7 +239,17 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to SetIamPolicy.
+  /// Sets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue]. Replaces any existing
+  /// policy.
+  ///
+  /// Note: The Cloud Console does not check queue-level IAM permissions yet.
+  /// Project-level permissions are required to use the Cloud Console.
+  ///
+  /// Authorization requires the following
+  /// [Google IAM](https://cloud.google.com/iam) permission on the specified
+  /// resource parent:
+  ///
+  /// * `cloudtasks.queues.setIamPolicy`
   ///
   /// - Parameters:
   ///   - request: Request to send to SetIamPolicy.
@@ -181,7 +261,13 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to TestIamPermissions.
+  /// Returns permissions that a caller has on a [Queue][google.cloud.tasks.v2beta3.Queue].
+  /// If the resource does not exist, this will return an empty set of
+  /// permissions, not a [NOT_FOUND][google.rpc.Code.NOT_FOUND] error.
+  ///
+  /// Note: This operation is designed to be used for building permission-aware
+  /// UIs and command-line tools, not for authorization checking. This operation
+  /// may "fail open" without warning.
   ///
   /// - Parameters:
   ///   - request: Request to send to TestIamPermissions.
@@ -193,7 +279,15 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to ListTasks.
+  /// Lists the tasks in a queue.
+  ///
+  /// By default, only the [BASIC][google.cloud.tasks.v2beta3.Task.View.BASIC] view is retrieved
+  /// due to performance considerations;
+  /// [response_view][google.cloud.tasks.v2beta3.ListTasksRequest.response_view] controls the
+  /// subset of information which is returned.
+  ///
+  /// The tasks may be returned in any order. The ordering may change at any
+  /// time.
   ///
   /// - Parameters:
   ///   - request: Request to send to ListTasks.
@@ -205,7 +299,7 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to GetTask.
+  /// Gets a task.
   ///
   /// - Parameters:
   ///   - request: Request to send to GetTask.
@@ -217,7 +311,11 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to CreateTask.
+  /// Creates a task and adds it to a queue.
+  ///
+  /// Tasks cannot be updated after creation; there is no UpdateTask command.
+  ///
+  /// * The maximum task size is 100KB.
   ///
   /// - Parameters:
   ///   - request: Request to send to CreateTask.
@@ -229,7 +327,11 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to DeleteTask.
+  /// Deletes a task.
+  ///
+  /// A task can be deleted if it is scheduled or dispatched. A task
+  /// cannot be deleted if it has executed successfully or permanently
+  /// failed.
   ///
   /// - Parameters:
   ///   - request: Request to send to DeleteTask.
@@ -241,7 +343,30 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to RunTask.
+  /// Forces a task to run now.
+  ///
+  /// When this method is called, Cloud Tasks will dispatch the task, even if
+  /// the task is already running, the queue has reached its [RateLimits][google.cloud.tasks.v2beta3.RateLimits] or
+  /// is [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED].
+  ///
+  /// This command is meant to be used for manual debugging. For
+  /// example, [RunTask][google.cloud.tasks.v2beta3.CloudTasks.RunTask] can be used to retry a failed
+  /// task after a fix has been made or to manually force a task to be
+  /// dispatched now.
+  ///
+  /// The dispatched task is returned. That is, the task that is returned
+  /// contains the [status][Task.status] after the task is dispatched but
+  /// before the task is received by its target.
+  ///
+  /// If Cloud Tasks receives a successful response from the task's
+  /// target, then the task will be deleted; otherwise the task's
+  /// [schedule_time][google.cloud.tasks.v2beta3.Task.schedule_time] will be reset to the time that
+  /// [RunTask][google.cloud.tasks.v2beta3.CloudTasks.RunTask] was called plus the retry delay specified
+  /// in the queue's [RetryConfig][google.cloud.tasks.v2beta3.RetryConfig].
+  ///
+  /// [RunTask][google.cloud.tasks.v2beta3.CloudTasks.RunTask] returns
+  /// [NOT_FOUND][google.rpc.Code.NOT_FOUND] when it is called on a
+  /// task that has already succeeded or permanently failed.
   ///
   /// - Parameters:
   ///   - request: Request to send to RunTask.
@@ -257,21 +382,162 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient: GRPCClien
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvider {
+  /// Lists queues.
+  ///
+  /// Queues are returned in lexicographical order.
   func listQueues(request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_ListQueuesResponse>
+  /// Gets a queue.
   func getQueue(request: Google_Cloud_Tasks_V2beta3_GetQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+  /// Creates a queue.
+  ///
+  /// Queues created with this method allow tasks to live for a maximum of 31
+  /// days. After a task is 31 days old, the task will be deleted regardless of whether
+  /// it was dispatched or not.
+  ///
+  /// WARNING: Using this method may have unintended side effects if you are
+  /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+  /// Read
+  /// [Overview of Queue Management and
+  /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+  /// this method.
   func createQueue(request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+  /// Updates a queue.
+  ///
+  /// This method creates the queue if it does not exist and updates
+  /// the queue if it does exist.
+  ///
+  /// Queues created with this method allow tasks to live for a maximum of 31
+  /// days. After a task is 31 days old, the task will be deleted regardless of whether
+  /// it was dispatched or not.
+  ///
+  /// WARNING: Using this method may have unintended side effects if you are
+  /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+  /// Read
+  /// [Overview of Queue Management and
+  /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+  /// this method.
   func updateQueue(request: Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+  /// Deletes a queue.
+  ///
+  /// This command will delete the queue even if it has tasks in it.
+  ///
+  /// Note: If you delete a queue, a queue with the same name can't be created
+  /// for 7 days.
+  ///
+  /// WARNING: Using this method may have unintended side effects if you are
+  /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+  /// Read
+  /// [Overview of Queue Management and
+  /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+  /// this method.
   func deleteQueue(request: Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+  /// Purges a queue by deleting all of its tasks.
+  ///
+  /// All tasks created before this method is called are permanently deleted.
+  ///
+  /// Purge operations can take up to one minute to take effect. Tasks
+  /// might be dispatched before the purge takes effect. A purge is irreversible.
   func purgeQueue(request: Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+  /// Pauses the queue.
+  ///
+  /// If a queue is paused then the system will stop dispatching tasks
+  /// until the queue is resumed via
+  /// [ResumeQueue][google.cloud.tasks.v2beta3.CloudTasks.ResumeQueue]. Tasks can still be added
+  /// when the queue is paused. A queue is paused if its
+  /// [state][google.cloud.tasks.v2beta3.Queue.state] is [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED].
   func pauseQueue(request: Google_Cloud_Tasks_V2beta3_PauseQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+  /// Resume a queue.
+  ///
+  /// This method resumes a queue after it has been
+  /// [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED] or
+  /// [DISABLED][google.cloud.tasks.v2beta3.Queue.State.DISABLED]. The state of a queue is stored
+  /// in the queue's [state][google.cloud.tasks.v2beta3.Queue.state]; after calling this method it
+  /// will be set to [RUNNING][google.cloud.tasks.v2beta3.Queue.State.RUNNING].
+  ///
+  /// WARNING: Resuming many high-QPS queues at the same time can
+  /// lead to target overloading. If you are resuming high-QPS
+  /// queues, follow the 500/50/5 pattern described in
+  /// [Managing Cloud Tasks Scaling
+  /// Risks](https://cloud.google.com/tasks/docs/manage-cloud-task-scaling).
   func resumeQueue(request: Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+  /// Gets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue].
+  /// Returns an empty policy if the resource exists and does not have a policy
+  /// set.
+  ///
+  /// Authorization requires the following
+  /// [Google IAM](https://cloud.google.com/iam) permission on the specified
+  /// resource parent:
+  ///
+  /// * `cloudtasks.queues.getIamPolicy`
   func getIamPolicy(request: Google_Iam_V1_GetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+  /// Sets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue]. Replaces any existing
+  /// policy.
+  ///
+  /// Note: The Cloud Console does not check queue-level IAM permissions yet.
+  /// Project-level permissions are required to use the Cloud Console.
+  ///
+  /// Authorization requires the following
+  /// [Google IAM](https://cloud.google.com/iam) permission on the specified
+  /// resource parent:
+  ///
+  /// * `cloudtasks.queues.setIamPolicy`
   func setIamPolicy(request: Google_Iam_V1_SetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+  /// Returns permissions that a caller has on a [Queue][google.cloud.tasks.v2beta3.Queue].
+  /// If the resource does not exist, this will return an empty set of
+  /// permissions, not a [NOT_FOUND][google.rpc.Code.NOT_FOUND] error.
+  ///
+  /// Note: This operation is designed to be used for building permission-aware
+  /// UIs and command-line tools, not for authorization checking. This operation
+  /// may "fail open" without warning.
   func testIamPermissions(request: Google_Iam_V1_TestIamPermissionsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_TestIamPermissionsResponse>
+  /// Lists the tasks in a queue.
+  ///
+  /// By default, only the [BASIC][google.cloud.tasks.v2beta3.Task.View.BASIC] view is retrieved
+  /// due to performance considerations;
+  /// [response_view][google.cloud.tasks.v2beta3.ListTasksRequest.response_view] controls the
+  /// subset of information which is returned.
+  ///
+  /// The tasks may be returned in any order. The ordering may change at any
+  /// time.
   func listTasks(request: Google_Cloud_Tasks_V2beta3_ListTasksRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_ListTasksResponse>
+  /// Gets a task.
   func getTask(request: Google_Cloud_Tasks_V2beta3_GetTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Task>
+  /// Creates a task and adds it to a queue.
+  ///
+  /// Tasks cannot be updated after creation; there is no UpdateTask command.
+  ///
+  /// * The maximum task size is 100KB.
   func createTask(request: Google_Cloud_Tasks_V2beta3_CreateTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Task>
+  /// Deletes a task.
+  ///
+  /// A task can be deleted if it is scheduled or dispatched. A task
+  /// cannot be deleted if it has executed successfully or permanently
+  /// failed.
   func deleteTask(request: Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+  /// Forces a task to run now.
+  ///
+  /// When this method is called, Cloud Tasks will dispatch the task, even if
+  /// the task is already running, the queue has reached its [RateLimits][google.cloud.tasks.v2beta3.RateLimits] or
+  /// is [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED].
+  ///
+  /// This command is meant to be used for manual debugging. For
+  /// example, [RunTask][google.cloud.tasks.v2beta3.CloudTasks.RunTask] can be used to retry a failed
+  /// task after a fix has been made or to manually force a task to be
+  /// dispatched now.
+  ///
+  /// The dispatched task is returned. That is, the task that is returned
+  /// contains the [status][Task.status] after the task is dispatched but
+  /// before the task is received by its target.
+  ///
+  /// If Cloud Tasks receives a successful response from the task's
+  /// target, then the task will be deleted; otherwise the task's
+  /// [schedule_time][google.cloud.tasks.v2beta3.Task.schedule_time] will be reset to the time that
+  /// [RunTask][google.cloud.tasks.v2beta3.CloudTasks.RunTask] was called plus the retry delay specified
+  /// in the queue's [RetryConfig][google.cloud.tasks.v2beta3.RetryConfig].
+  ///
+  /// [RunTask][google.cloud.tasks.v2beta3.CloudTasks.RunTask] returns
+  /// [NOT_FOUND][google.rpc.Code.NOT_FOUND] when it is called on a
+  /// task that has already succeeded or permanently failed.
   func runTask(request: Google_Cloud_Tasks_V2beta3_RunTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Task>
 }
 
@@ -400,28 +666,28 @@ extension Google_Cloud_Tasks_V2beta3_CloudTasksProvider {
 }
 
 
-/// Provides conformance to `GRPCPayload` for the request and response messages
-//extension Google_Cloud_Tasks_V2beta3_ListQueuesRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_ListQueuesResponse: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_GetQueueRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_Queue: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_CreateQueueRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_UpdateQueueRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_DeleteQueueRequest: GRPCProtobufPayload {}
-//extension SwiftProtobuf.Google_Protobuf_Empty: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_PurgeQueueRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_PauseQueueRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_ResumeQueueRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
-//extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_ListTasksRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_ListTasksResponse: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_GetTaskRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_Task: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_CreateTaskRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_DeleteTaskRequest: GRPCProtobufPayload {}
-//extension Google_Cloud_Tasks_V2beta3_RunTaskRequest: GRPCProtobufPayload {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Google_Cloud_Tasks_V2beta3_ListQueuesRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_ListQueuesResponse: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_GetQueueRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_Queue: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_CreateQueueRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_UpdateQueueRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_DeleteQueueRequest: GRPCProtobufPayload {}
+extension SwiftProtobuf.Google_Protobuf_Empty: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_PurgeQueueRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_PauseQueueRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_ResumeQueueRequest: GRPCProtobufPayload {}
+extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
+extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
+extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
+extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
+extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_ListTasksRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_ListTasksResponse: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_GetTaskRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_Task: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_CreateTaskRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_DeleteTaskRequest: GRPCProtobufPayload {}
+extension Google_Cloud_Tasks_V2beta3_RunTaskRequest: GRPCProtobufPayload {}
 

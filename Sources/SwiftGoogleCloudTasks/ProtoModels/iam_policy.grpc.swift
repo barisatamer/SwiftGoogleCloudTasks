@@ -27,28 +27,29 @@ import NIOHTTP1
 import SwiftProtobuf
 
 
-/// Usage: instantiate Google_Iam_V1_IAMPolicyServiceClient, then call methods of this protocol to make API calls.
-public protocol Google_Iam_V1_IAMPolicyService {
+/// Usage: instantiate Google_Iam_V1_IAMPolicyClient, then call methods of this protocol to make API calls.
+public protocol Google_Iam_V1_IAMPolicyClientProtocol {
   func setIamPolicy(_ request: Google_Iam_V1_SetIamPolicyRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>
   func getIamPolicy(_ request: Google_Iam_V1_GetIamPolicyRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>
   func testIamPermissions(_ request: Google_Iam_V1_TestIamPermissionsRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>
 }
 
-public final class Google_Iam_V1_IAMPolicyServiceClient: GRPCClient, Google_Iam_V1_IAMPolicyService {
-  public let connection: ClientConnection
+public final class Google_Iam_V1_IAMPolicyClient: GRPCClient, Google_Iam_V1_IAMPolicyClientProtocol {
+  public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions
 
   /// Creates a client for the google.iam.v1.IAMPolicy service.
   ///
   /// - Parameters:
-  ///   - connection: `ClientConnection` to the service host.
+  ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
-    self.connection = connection
+  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
 
-  /// Asynchronous unary call to SetIamPolicy.
+  /// Sets the access control policy on the specified resource. Replaces any
+  /// existing policy.
   ///
   /// - Parameters:
   ///   - request: Request to send to SetIamPolicy.
@@ -60,7 +61,9 @@ public final class Google_Iam_V1_IAMPolicyServiceClient: GRPCClient, Google_Iam_
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to GetIamPolicy.
+  /// Gets the access control policy for a resource.
+  /// Returns an empty policy if the resource exists and does not have a policy
+  /// set.
   ///
   /// - Parameters:
   ///   - request: Request to send to GetIamPolicy.
@@ -72,7 +75,13 @@ public final class Google_Iam_V1_IAMPolicyServiceClient: GRPCClient, Google_Iam_
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous unary call to TestIamPermissions.
+  /// Returns permissions that a caller has on the specified resource.
+  /// If the resource does not exist, this will return an empty set of
+  /// permissions, not a NOT_FOUND error.
+  ///
+  /// Note: This operation is designed to be used for building permission-aware
+  /// UIs and command-line tools, not for authorization checking. This operation
+  /// may "fail open" without warning.
   ///
   /// - Parameters:
   ///   - request: Request to send to TestIamPermissions.
@@ -88,8 +97,20 @@ public final class Google_Iam_V1_IAMPolicyServiceClient: GRPCClient, Google_Iam_
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Google_Iam_V1_IAMPolicyProvider: CallHandlerProvider {
+  /// Sets the access control policy on the specified resource. Replaces any
+  /// existing policy.
   func setIamPolicy(request: Google_Iam_V1_SetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+  /// Gets the access control policy for a resource.
+  /// Returns an empty policy if the resource exists and does not have a policy
+  /// set.
   func getIamPolicy(request: Google_Iam_V1_GetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+  /// Returns permissions that a caller has on the specified resource.
+  /// If the resource does not exist, this will return an empty set of
+  /// permissions, not a NOT_FOUND error.
+  ///
+  /// Note: This operation is designed to be used for building permission-aware
+  /// UIs and command-line tools, not for authorization checking. This operation
+  /// may "fail open" without warning.
   func testIamPermissions(request: Google_Iam_V1_TestIamPermissionsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_TestIamPermissionsResponse>
 }
 
@@ -127,10 +148,9 @@ extension Google_Iam_V1_IAMPolicyProvider {
 }
 
 
-/// Provides conformance to `GRPCPayload` for the request and response messages
+// Provides conformance to `GRPCPayload` for request and response messages
 //extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
 //extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
 //extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
 //extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
 //extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
-//
