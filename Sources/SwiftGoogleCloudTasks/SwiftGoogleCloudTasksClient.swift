@@ -133,13 +133,13 @@ public class SwiftGoogleCloudTasksClient {
         host: String,
         port: Int,
         eventLoopGroup: EventLoopGroup
-    ) -> Google_Cloud_Tasks_V2beta3_CloudTasksServiceClient {
+    ) -> Google_Cloud_Tasks_V2beta3_CloudTasksClient {
         let configuration = ClientConnection.Configuration(
             target: .hostAndPort(host, port),
             eventLoopGroup: eventLoopGroup,
             tls: .init()
         )
         let connection = ClientConnection(configuration: configuration)
-        return .init(connection: connection)
+        return .init(channel: connection)
     }
 }
