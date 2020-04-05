@@ -8,18 +8,17 @@ mkdir -p ProtocolBuffers/ && cd ProtocolBuffers/
 #     The plugin must be ready at .build/release/protoc-gen-grpc-swift
 #git clone https://github.com/grpc/grpc-swift.git
 cd grpc-swift
-pwd
-# git fetch origin nio
-# git checkout origin/nio
 git fetch --all --tags
-git checkout 1.0.0-alpha.6
+git checkout 1.0.0-alpha.11
 make plugins
 
 
 # 2 - Fetch Google Apis for Protocol Buffers files
+cd ..
 git clone https://github.com/googleapis/googleapis.git
+
 mkdir -p ../GeneratedSources/GoogleCloudTasks/
-cd ../googleapis
+cd googleapis
 pwd
 
 protoc google/cloud/tasks/v2beta3/*.proto \
