@@ -19,18 +19,11 @@ public class SwiftGoogleCloudTasksClient {
     }
     
     public var eventLoopGroup: EventLoopGroup
-
-    /// https://github.com/googleapis/google-cloud-go/issues/1027
-    public var parent: String?
     
     // MARK: Public Initializer
     
-    public init(
-        eventLoopGroup: EventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1),
-        parent: String? = nil
-    ) {
+    public init(eventLoopGroup: EventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)) {
         self.eventLoopGroup = eventLoopGroup
-        self.parent = parent
     }
     
     // MARK: Public Methods
@@ -58,7 +51,7 @@ public class SwiftGoogleCloudTasksClient {
             port: Constants.port,
             eventLoopGroup: eventLoopGroup
         )
-        return try prepareCallOptions(eventLoopGroup: eventLoopGroup)
+        return try prepareCallOptions(eventLoopGroup: eventLoopGroup, parent: request.parent)
             .flatMap { callOptions -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Task> in
                 return client.createTask(request, callOptions: callOptions).response
         }
@@ -70,14 +63,15 @@ public class SwiftGoogleCloudTasksClient {
 
     // MARK: Private Methods
 
-    private func prepareCallOptions(eventLoopGroup: EventLoopGroup) throws -> EventLoopFuture<CallOptions> {
+    /// https://github.com/googleapis/google-cloud-go/issues/1027 (for parent x-goog-request-params issue)
+    private func prepareCallOptions(eventLoopGroup: EventLoopGroup, parent: String? = nil) throws -> EventLoopFuture<CallOptions> {
         return getAuthToken(
             scopes: Constants.scopes,
             eventLoop: eventLoopGroup.next()
         ).map { authToken -> (CallOptions) in
             // Use CallOptions to send the auth token (necessary) and set a custom timeout (optional).
             var headers: HPACKHeaders = ["authorization": "Bearer \(authToken)"]
-            if let parent = self.parent {
+            if let parent = parent {
                 headers.add(name:"x-goog-request-params", value: "parent=" + parent)
             }
             
