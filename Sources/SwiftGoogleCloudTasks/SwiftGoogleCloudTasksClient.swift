@@ -21,7 +21,7 @@ public class SwiftGoogleCloudTasksClient {
     public var eventLoopGroup: EventLoopGroup
 
     /// https://github.com/googleapis/google-cloud-go/issues/1027
-    var parent: String?
+    public var parent: String?
     
     // MARK: Public Initializer
     
