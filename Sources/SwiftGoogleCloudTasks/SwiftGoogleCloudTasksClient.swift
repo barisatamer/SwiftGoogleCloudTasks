@@ -37,7 +37,7 @@ public class SwiftGoogleCloudTasksClient {
             port: Constants.port,
             eventLoopGroup: eventLoopGroup
         )
-        return try prepareCallOptions(eventLoopGroup: eventLoopGroup)
+        return try prepareCallOptions(eventLoopGroup: eventLoopGroup, parent: request.parent)
             .flatMap { callOptions -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_ListQueuesResponse> in
                 return client.listQueues(request, callOptions: callOptions).response
         }
