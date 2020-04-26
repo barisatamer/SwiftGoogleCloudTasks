@@ -2,7 +2,7 @@ import XCTest
 @testable import SwiftGoogleCloudTasks
 
 final class SwiftGoogleCloudTasksTests: XCTestCase {
-    var client: SwiftGoogleCloudTasksClient = .init(parent: "projects/phrase-book-vapor/locations/europe-west1")
+    var client: SwiftGoogleCloudTasksClient = .init()
     
     func testListQueues() {
         let request = Google_Cloud_Tasks_V2beta3_ListQueuesRequest.with {
@@ -22,8 +22,6 @@ final class SwiftGoogleCloudTasksTests: XCTestCase {
     }
     
     func testCreateTask() {
-        self.client.parent = "projects/phrase-book-vapor/locations/europe-west1/queues/tts-queue"
-        
         let request = Google_Cloud_Tasks_V2beta3_CreateTaskRequest.with {
             $0.parent = "projects/phrase-book-vapor/locations/europe-west1/queues/tts-queue"
             $0.task = Google_Cloud_Tasks_V2beta3_Task.with {
