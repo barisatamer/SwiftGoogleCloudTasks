@@ -75,7 +75,7 @@ public class SwiftGoogleCloudTasksClient {
                 headers.add(name:"x-goog-request-params", value: "parent=" + parent)
             }
             
-            let callOptions = CallOptions(customMetadata: headers, timeout: .seconds(rounding: 30))
+            let callOptions = CallOptions(customMetadata: headers, timeLimit: .timeout(.seconds(30)))
             debugPrint("CALL OPTIONS\n\(callOptions)\n")
             return callOptions
         }

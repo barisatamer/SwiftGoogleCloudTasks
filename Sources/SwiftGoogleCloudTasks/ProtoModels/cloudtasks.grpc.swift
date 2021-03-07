@@ -20,45 +20,103 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
-/// Usage: instantiate Google_Cloud_Tasks_V2beta3_CloudTasksClient, then call methods of this protocol to make API calls.
-public protocol Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol {
-  func listQueues(_ request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse>
-  func getQueue(_ request: Google_Cloud_Tasks_V2beta3_GetQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
-  func createQueue(_ request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
-  func updateQueue(_ request: Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
-  func deleteQueue(_ request: Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, SwiftProtobuf.Google_Protobuf_Empty>
-  func purgeQueue(_ request: Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
-  func pauseQueue(_ request: Google_Cloud_Tasks_V2beta3_PauseQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PauseQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
-  func resumeQueue(_ request: Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
-  func getIamPolicy(_ request: Google_Iam_V1_GetIamPolicyRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>
-  func setIamPolicy(_ request: Google_Iam_V1_SetIamPolicyRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>
-  func testIamPermissions(_ request: Google_Iam_V1_TestIamPermissionsRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>
-  func listTasks(_ request: Google_Cloud_Tasks_V2beta3_ListTasksRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListTasksRequest, Google_Cloud_Tasks_V2beta3_ListTasksResponse>
-  func getTask(_ request: Google_Cloud_Tasks_V2beta3_GetTaskRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
-  func createTask(_ request: Google_Cloud_Tasks_V2beta3_CreateTaskRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
-  func deleteTask(_ request: Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, SwiftProtobuf.Google_Protobuf_Empty>
-  func runTask(_ request: Google_Cloud_Tasks_V2beta3_RunTaskRequest, callOptions: CallOptions?) -> UnaryCall<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
+/// Cloud Tasks allows developers to manage the execution of background
+/// work in their applications.
+///
+/// Usage: instantiate `Google_Cloud_Tasks_V2beta3_CloudTasksClient`, then call methods of this protocol to make API calls.
+public protocol Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Google_Cloud_Tasks_V2beta3_CloudTasksClientInterceptorFactoryProtocol? { get }
+
+  func listQueues(
+    _ request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse>
+
+  func getQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_GetQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
+
+  func createQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
+
+  func updateQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_UpdateQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
+
+  func deleteQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_DeleteQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, SwiftProtobuf.Google_Protobuf_Empty>
+
+  func purgeQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_PurgeQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
+
+  func pauseQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_PauseQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PauseQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
+
+  func resumeQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_ResumeQueueRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>
+
+  func getIamPolicy(
+    _ request: Google_Iam_V1_GetIamPolicyRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>
+
+  func setIamPolicy(
+    _ request: Google_Iam_V1_SetIamPolicyRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>
+
+  func testIamPermissions(
+    _ request: Google_Iam_V1_TestIamPermissionsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>
+
+  func listTasks(
+    _ request: Google_Cloud_Tasks_V2beta3_ListTasksRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListTasksRequest, Google_Cloud_Tasks_V2beta3_ListTasksResponse>
+
+  func getTask(
+    _ request: Google_Cloud_Tasks_V2beta3_GetTaskRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
+
+  func createTask(
+    _ request: Google_Cloud_Tasks_V2beta3_CreateTaskRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
+
+  func deleteTask(
+    _ request: Google_Cloud_Tasks_V2beta3_DeleteTaskRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, SwiftProtobuf.Google_Protobuf_Empty>
+
+  func runTask(
+    _ request: Google_Cloud_Tasks_V2beta3_RunTaskRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task>
 }
 
-public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-
-  /// Creates a client for the google.cloud.tasks.v2beta3.CloudTasks service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
+extension Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol {
+  public var serviceName: String {
+    return "google.cloud.tasks.v2beta3.CloudTasks"
   }
 
   /// Lists queues.
@@ -67,24 +125,36 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to ListQueues.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func listQueues(_ request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/ListQueues",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func listQueues(
+    _ request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/ListQueues",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListQueuesInterceptors() ?? []
+    )
   }
 
   /// Gets a queue.
   ///
   /// - Parameters:
   ///   - request: Request to send to GetQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func getQueue(_ request: Google_Cloud_Tasks_V2beta3_GetQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/GetQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func getQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_GetQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/GetQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetQueueInterceptors() ?? []
+    )
   }
 
   /// Creates a queue.
@@ -102,12 +172,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to CreateQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func createQueue(_ request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/CreateQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func createQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/CreateQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCreateQueueInterceptors() ?? []
+    )
   }
 
   /// Updates a queue.
@@ -128,12 +204,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to UpdateQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func updateQueue(_ request: Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/UpdateQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func updateQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_UpdateQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/UpdateQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateQueueInterceptors() ?? []
+    )
   }
 
   /// Deletes a queue.
@@ -152,12 +234,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to DeleteQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func deleteQueue(_ request: Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, SwiftProtobuf.Google_Protobuf_Empty> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/DeleteQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func deleteQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_DeleteQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, SwiftProtobuf.Google_Protobuf_Empty> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/DeleteQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDeleteQueueInterceptors() ?? []
+    )
   }
 
   /// Purges a queue by deleting all of its tasks.
@@ -169,12 +257,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to PurgeQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func purgeQueue(_ request: Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/PurgeQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func purgeQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_PurgeQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/PurgeQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePurgeQueueInterceptors() ?? []
+    )
   }
 
   /// Pauses the queue.
@@ -187,12 +281,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to PauseQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func pauseQueue(_ request: Google_Cloud_Tasks_V2beta3_PauseQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PauseQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/PauseQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func pauseQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_PauseQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_PauseQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/PauseQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePauseQueueInterceptors() ?? []
+    )
   }
 
   /// Resume a queue.
@@ -211,12 +311,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to ResumeQueue.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func resumeQueue(_ request: Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/ResumeQueue",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func resumeQueue(
+    _ request: Google_Cloud_Tasks_V2beta3_ResumeQueueRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/ResumeQueue",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeResumeQueueInterceptors() ?? []
+    )
   }
 
   /// Gets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue].
@@ -231,12 +337,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to GetIamPolicy.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func getIamPolicy(_ request: Google_Iam_V1_GetIamPolicyRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/GetIamPolicy",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func getIamPolicy(
+    _ request: Google_Iam_V1_GetIamPolicyRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/GetIamPolicy",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetIamPolicyInterceptors() ?? []
+    )
   }
 
   /// Sets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue]. Replaces any existing
@@ -253,12 +365,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to SetIamPolicy.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func setIamPolicy(_ request: Google_Iam_V1_SetIamPolicyRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/SetIamPolicy",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func setIamPolicy(
+    _ request: Google_Iam_V1_SetIamPolicyRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/SetIamPolicy",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetIamPolicyInterceptors() ?? []
+    )
   }
 
   /// Returns permissions that a caller has on a [Queue][google.cloud.tasks.v2beta3.Queue].
@@ -271,12 +389,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to TestIamPermissions.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func testIamPermissions(_ request: Google_Iam_V1_TestIamPermissionsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/TestIamPermissions",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func testIamPermissions(
+    _ request: Google_Iam_V1_TestIamPermissionsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/TestIamPermissions",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTestIamPermissionsInterceptors() ?? []
+    )
   }
 
   /// Lists the tasks in a queue.
@@ -291,24 +415,36 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to ListTasks.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func listTasks(_ request: Google_Cloud_Tasks_V2beta3_ListTasksRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListTasksRequest, Google_Cloud_Tasks_V2beta3_ListTasksResponse> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/ListTasks",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func listTasks(
+    _ request: Google_Cloud_Tasks_V2beta3_ListTasksRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_ListTasksRequest, Google_Cloud_Tasks_V2beta3_ListTasksResponse> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/ListTasks",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListTasksInterceptors() ?? []
+    )
   }
 
   /// Gets a task.
   ///
   /// - Parameters:
   ///   - request: Request to send to GetTask.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func getTask(_ request: Google_Cloud_Tasks_V2beta3_GetTaskRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetTaskRequest, Google_Cloud_Tasks_V2beta3_Task> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/GetTask",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func getTask(
+    _ request: Google_Cloud_Tasks_V2beta3_GetTaskRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_GetTaskRequest, Google_Cloud_Tasks_V2beta3_Task> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/GetTask",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetTaskInterceptors() ?? []
+    )
   }
 
   /// Creates a task and adds it to a queue.
@@ -319,12 +455,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to CreateTask.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func createTask(_ request: Google_Cloud_Tasks_V2beta3_CreateTaskRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateTaskRequest, Google_Cloud_Tasks_V2beta3_Task> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/CreateTask",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func createTask(
+    _ request: Google_Cloud_Tasks_V2beta3_CreateTaskRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_CreateTaskRequest, Google_Cloud_Tasks_V2beta3_Task> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/CreateTask",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCreateTaskInterceptors() ?? []
+    )
   }
 
   /// Deletes a task.
@@ -335,12 +477,18 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to DeleteTask.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func deleteTask(_ request: Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, SwiftProtobuf.Google_Protobuf_Empty> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/DeleteTask",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func deleteTask(
+    _ request: Google_Cloud_Tasks_V2beta3_DeleteTaskRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, SwiftProtobuf.Google_Protobuf_Empty> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/DeleteTask",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDeleteTaskInterceptors() ?? []
+    )
   }
 
   /// Forces a task to run now.
@@ -370,24 +518,109 @@ public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: GRPCClient, Goog
   ///
   /// - Parameters:
   ///   - request: Request to send to RunTask.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func runTask(_ request: Google_Cloud_Tasks_V2beta3_RunTaskRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task> {
-    return self.makeUnaryCall(path: "/google.cloud.tasks.v2beta3.CloudTasks/RunTask",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func runTask(
+    _ request: Google_Cloud_Tasks_V2beta3_RunTaskRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task> {
+    return self.makeUnaryCall(
+      path: "/google.cloud.tasks.v2beta3.CloudTasks/RunTask",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRunTaskInterceptors() ?? []
+    )
   }
-
 }
 
+public protocol Google_Cloud_Tasks_V2beta3_CloudTasksClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'listQueues'.
+  func makeListQueuesInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getQueue'.
+  func makeGetQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when invoking 'createQueue'.
+  func makeCreateQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when invoking 'updateQueue'.
+  func makeUpdateQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when invoking 'deleteQueue'.
+  func makeDeleteQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, SwiftProtobuf.Google_Protobuf_Empty>]
+
+  /// - Returns: Interceptors to use when invoking 'purgeQueue'.
+  func makePurgeQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when invoking 'pauseQueue'.
+  func makePauseQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_PauseQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when invoking 'resumeQueue'.
+  func makeResumeQueueInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when invoking 'getIamPolicy'.
+  func makeGetIamPolicyInterceptors() -> [ClientInterceptor<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when invoking 'setIamPolicy'.
+  func makeSetIamPolicyInterceptors() -> [ClientInterceptor<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when invoking 'testIamPermissions'.
+  func makeTestIamPermissionsInterceptors() -> [ClientInterceptor<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'listTasks'.
+  func makeListTasksInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_ListTasksRequest, Google_Cloud_Tasks_V2beta3_ListTasksResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getTask'.
+  func makeGetTaskInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_GetTaskRequest, Google_Cloud_Tasks_V2beta3_Task>]
+
+  /// - Returns: Interceptors to use when invoking 'createTask'.
+  func makeCreateTaskInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_CreateTaskRequest, Google_Cloud_Tasks_V2beta3_Task>]
+
+  /// - Returns: Interceptors to use when invoking 'deleteTask'.
+  func makeDeleteTaskInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, SwiftProtobuf.Google_Protobuf_Empty>]
+
+  /// - Returns: Interceptors to use when invoking 'runTask'.
+  func makeRunTaskInterceptors() -> [ClientInterceptor<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task>]
+}
+
+public final class Google_Cloud_Tasks_V2beta3_CloudTasksClient: Google_Cloud_Tasks_V2beta3_CloudTasksClientProtocol {
+  public let channel: GRPCChannel
+  public var defaultCallOptions: CallOptions
+  public var interceptors: Google_Cloud_Tasks_V2beta3_CloudTasksClientInterceptorFactoryProtocol?
+
+  /// Creates a client for the google.cloud.tasks.v2beta3.CloudTasks service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  public init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Google_Cloud_Tasks_V2beta3_CloudTasksClientInterceptorFactoryProtocol? = nil
+  ) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
+  }
+}
+
+/// Cloud Tasks allows developers to manage the execution of background
+/// work in their applications.
+///
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvider {
+  var interceptors: Google_Cloud_Tasks_V2beta3_CloudTasksServerInterceptorFactoryProtocol? { get }
+
   /// Lists queues.
   ///
   /// Queues are returned in lexicographical order.
   func listQueues(request: Google_Cloud_Tasks_V2beta3_ListQueuesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_ListQueuesResponse>
+
   /// Gets a queue.
   func getQueue(request: Google_Cloud_Tasks_V2beta3_GetQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+
   /// Creates a queue.
   ///
   /// Queues created with this method allow tasks to live for a maximum of 31
@@ -401,6 +634,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
   /// this method.
   func createQueue(request: Google_Cloud_Tasks_V2beta3_CreateQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+
   /// Updates a queue.
   ///
   /// This method creates the queue if it does not exist and updates
@@ -417,6 +651,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
   /// this method.
   func updateQueue(request: Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+
   /// Deletes a queue.
   ///
   /// This command will delete the queue even if it has tasks in it.
@@ -431,6 +666,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
   /// this method.
   func deleteQueue(request: Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+
   /// Purges a queue by deleting all of its tasks.
   ///
   /// All tasks created before this method is called are permanently deleted.
@@ -438,6 +674,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// Purge operations can take up to one minute to take effect. Tasks
   /// might be dispatched before the purge takes effect. A purge is irreversible.
   func purgeQueue(request: Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+
   /// Pauses the queue.
   ///
   /// If a queue is paused then the system will stop dispatching tasks
@@ -446,6 +683,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// when the queue is paused. A queue is paused if its
   /// [state][google.cloud.tasks.v2beta3.Queue.state] is [PAUSED][google.cloud.tasks.v2beta3.Queue.State.PAUSED].
   func pauseQueue(request: Google_Cloud_Tasks_V2beta3_PauseQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+
   /// Resume a queue.
   ///
   /// This method resumes a queue after it has been
@@ -460,6 +698,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// [Managing Cloud Tasks Scaling
   /// Risks](https://cloud.google.com/tasks/docs/manage-cloud-task-scaling).
   func resumeQueue(request: Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Queue>
+
   /// Gets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue].
   /// Returns an empty policy if the resource exists and does not have a policy
   /// set.
@@ -470,6 +709,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   ///
   /// * `cloudtasks.queues.getIamPolicy`
   func getIamPolicy(request: Google_Iam_V1_GetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+
   /// Sets the access control policy for a [Queue][google.cloud.tasks.v2beta3.Queue]. Replaces any existing
   /// policy.
   ///
@@ -482,6 +722,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   ///
   /// * `cloudtasks.queues.setIamPolicy`
   func setIamPolicy(request: Google_Iam_V1_SetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+
   /// Returns permissions that a caller has on a [Queue][google.cloud.tasks.v2beta3.Queue].
   /// If the resource does not exist, this will return an empty set of
   /// permissions, not a [NOT_FOUND][google.rpc.Code.NOT_FOUND] error.
@@ -490,6 +731,7 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// UIs and command-line tools, not for authorization checking. This operation
   /// may "fail open" without warning.
   func testIamPermissions(request: Google_Iam_V1_TestIamPermissionsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_TestIamPermissionsResponse>
+
   /// Lists the tasks in a queue.
   ///
   /// By default, only the [BASIC][google.cloud.tasks.v2beta3.Task.View.BASIC] view is retrieved
@@ -500,20 +742,24 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
   /// The tasks may be returned in any order. The ordering may change at any
   /// time.
   func listTasks(request: Google_Cloud_Tasks_V2beta3_ListTasksRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_ListTasksResponse>
+
   /// Gets a task.
   func getTask(request: Google_Cloud_Tasks_V2beta3_GetTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Task>
+
   /// Creates a task and adds it to a queue.
   ///
   /// Tasks cannot be updated after creation; there is no UpdateTask command.
   ///
   /// * The maximum task size is 100KB.
   func createTask(request: Google_Cloud_Tasks_V2beta3_CreateTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Cloud_Tasks_V2beta3_Task>
+
   /// Deletes a task.
   ///
   /// A task can be deleted if it is scheduled or dispatched. A task
   /// cannot be deleted if it has executed successfully or permanently
   /// failed.
   func deleteTask(request: Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+
   /// Forces a task to run now.
   ///
   /// When this method is called, Cloud Tasks will dispatch the task, even if
@@ -542,152 +788,228 @@ public protocol Google_Cloud_Tasks_V2beta3_CloudTasksProvider: CallHandlerProvid
 }
 
 extension Google_Cloud_Tasks_V2beta3_CloudTasksProvider {
-  public var serviceName: String { return "google.cloud.tasks.v2beta3.CloudTasks" }
+  public var serviceName: Substring { return "google.cloud.tasks.v2beta3.CloudTasks" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  public func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  public func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "ListQueues":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.listQueues(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_ListQueuesRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_ListQueuesResponse>(),
+        interceptors: self.interceptors?.makeListQueuesInterceptors() ?? [],
+        userFunction: self.listQueues(request:context:)
+      )
 
     case "GetQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_GetQueueRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Queue>(),
+        interceptors: self.interceptors?.makeGetQueueInterceptors() ?? [],
+        userFunction: self.getQueue(request:context:)
+      )
 
     case "CreateQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.createQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_CreateQueueRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Queue>(),
+        interceptors: self.interceptors?.makeCreateQueueInterceptors() ?? [],
+        userFunction: self.createQueue(request:context:)
+      )
 
     case "UpdateQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.updateQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Queue>(),
+        interceptors: self.interceptors?.makeUpdateQueueInterceptors() ?? [],
+        userFunction: self.updateQueue(request:context:)
+      )
 
     case "DeleteQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.deleteQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest>(),
+        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        interceptors: self.interceptors?.makeDeleteQueueInterceptors() ?? [],
+        userFunction: self.deleteQueue(request:context:)
+      )
 
     case "PurgeQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.purgeQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Queue>(),
+        interceptors: self.interceptors?.makePurgeQueueInterceptors() ?? [],
+        userFunction: self.purgeQueue(request:context:)
+      )
 
     case "PauseQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.pauseQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_PauseQueueRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Queue>(),
+        interceptors: self.interceptors?.makePauseQueueInterceptors() ?? [],
+        userFunction: self.pauseQueue(request:context:)
+      )
 
     case "ResumeQueue":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.resumeQueue(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Queue>(),
+        interceptors: self.interceptors?.makeResumeQueueInterceptors() ?? [],
+        userFunction: self.resumeQueue(request:context:)
+      )
 
     case "GetIamPolicy":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getIamPolicy(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Iam_V1_GetIamPolicyRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Iam_V1_Policy>(),
+        interceptors: self.interceptors?.makeGetIamPolicyInterceptors() ?? [],
+        userFunction: self.getIamPolicy(request:context:)
+      )
 
     case "SetIamPolicy":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setIamPolicy(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Iam_V1_SetIamPolicyRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Iam_V1_Policy>(),
+        interceptors: self.interceptors?.makeSetIamPolicyInterceptors() ?? [],
+        userFunction: self.setIamPolicy(request:context:)
+      )
 
     case "TestIamPermissions":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.testIamPermissions(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Iam_V1_TestIamPermissionsRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Iam_V1_TestIamPermissionsResponse>(),
+        interceptors: self.interceptors?.makeTestIamPermissionsInterceptors() ?? [],
+        userFunction: self.testIamPermissions(request:context:)
+      )
 
     case "ListTasks":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.listTasks(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_ListTasksRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_ListTasksResponse>(),
+        interceptors: self.interceptors?.makeListTasksInterceptors() ?? [],
+        userFunction: self.listTasks(request:context:)
+      )
 
     case "GetTask":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getTask(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_GetTaskRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Task>(),
+        interceptors: self.interceptors?.makeGetTaskInterceptors() ?? [],
+        userFunction: self.getTask(request:context:)
+      )
 
     case "CreateTask":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.createTask(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_CreateTaskRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Task>(),
+        interceptors: self.interceptors?.makeCreateTaskInterceptors() ?? [],
+        userFunction: self.createTask(request:context:)
+      )
 
     case "DeleteTask":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.deleteTask(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest>(),
+        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        interceptors: self.interceptors?.makeDeleteTaskInterceptors() ?? [],
+        userFunction: self.deleteTask(request:context:)
+      )
 
     case "RunTask":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.runTask(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Cloud_Tasks_V2beta3_RunTaskRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Cloud_Tasks_V2beta3_Task>(),
+        interceptors: self.interceptors?.makeRunTaskInterceptors() ?? [],
+        userFunction: self.runTask(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+public protocol Google_Cloud_Tasks_V2beta3_CloudTasksServerInterceptorFactoryProtocol {
 
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Google_Cloud_Tasks_V2beta3_ListQueuesRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ListQueuesResponse: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_GetQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_Queue: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_CreateQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_UpdateQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_DeleteQueueRequest: GRPCProtobufPayload {}
-extension SwiftProtobuf.Google_Protobuf_Empty: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_PurgeQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_PauseQueueRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ResumeQueueRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
-extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
-extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ListTasksRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_ListTasksResponse: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_GetTaskRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_Task: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_CreateTaskRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_DeleteTaskRequest: GRPCProtobufPayload {}
-extension Google_Cloud_Tasks_V2beta3_RunTaskRequest: GRPCProtobufPayload {}
+  /// - Returns: Interceptors to use when handling 'listQueues'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListQueuesInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_ListQueuesRequest, Google_Cloud_Tasks_V2beta3_ListQueuesResponse>]
 
+  /// - Returns: Interceptors to use when handling 'getQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_GetQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when handling 'createQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCreateQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_CreateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when handling 'updateQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUpdateQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_UpdateQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when handling 'deleteQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDeleteQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_DeleteQueueRequest, SwiftProtobuf.Google_Protobuf_Empty>]
+
+  /// - Returns: Interceptors to use when handling 'purgeQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePurgeQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_PurgeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when handling 'pauseQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePauseQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_PauseQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when handling 'resumeQueue'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeResumeQueueInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_ResumeQueueRequest, Google_Cloud_Tasks_V2beta3_Queue>]
+
+  /// - Returns: Interceptors to use when handling 'getIamPolicy'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetIamPolicyInterceptors() -> [ServerInterceptor<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when handling 'setIamPolicy'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetIamPolicyInterceptors() -> [ServerInterceptor<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when handling 'testIamPermissions'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTestIamPermissionsInterceptors() -> [ServerInterceptor<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'listTasks'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListTasksInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_ListTasksRequest, Google_Cloud_Tasks_V2beta3_ListTasksResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getTask'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetTaskInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_GetTaskRequest, Google_Cloud_Tasks_V2beta3_Task>]
+
+  /// - Returns: Interceptors to use when handling 'createTask'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCreateTaskInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_CreateTaskRequest, Google_Cloud_Tasks_V2beta3_Task>]
+
+  /// - Returns: Interceptors to use when handling 'deleteTask'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDeleteTaskInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_DeleteTaskRequest, SwiftProtobuf.Google_Protobuf_Empty>]
+
+  /// - Returns: Interceptors to use when handling 'runTask'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRunTaskInterceptors() -> [ServerInterceptor<Google_Cloud_Tasks_V2beta3_RunTaskRequest, Google_Cloud_Tasks_V2beta3_Task>]
+}

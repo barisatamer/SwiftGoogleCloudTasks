@@ -20,32 +20,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
-/// Usage: instantiate Google_Iam_V1_IAMPolicyClient, then call methods of this protocol to make API calls.
-public protocol Google_Iam_V1_IAMPolicyClientProtocol {
-  func setIamPolicy(_ request: Google_Iam_V1_SetIamPolicyRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>
-  func getIamPolicy(_ request: Google_Iam_V1_GetIamPolicyRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>
-  func testIamPermissions(_ request: Google_Iam_V1_TestIamPermissionsRequest, callOptions: CallOptions?) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>
+/// ## API Overview
+///
+/// Manages Identity and Access Management (IAM) policies.
+///
+/// Any implementation of an API that offers access control features
+/// implements the google.iam.v1.IAMPolicy interface.
+///
+/// ## Data model
+///
+/// Access control is applied when a principal (user or service account), takes
+/// some action on a resource exposed by a service. Resources, identified by
+/// URI-like names, are the unit of access control specification. Service
+/// implementations can choose the granularity of access control and the
+/// supported permissions for their resources.
+/// For example one database service may allow access control to be
+/// specified only at the Table level, whereas another might allow access control
+/// to also be specified at the Column level.
+///
+/// ## Policy Structure
+///
+/// See google.iam.v1.Policy
+///
+/// This is intentionally not a CRUD style API because access control policies
+/// are created and deleted implicitly with the resources to which they are
+/// attached.
+///
+/// Usage: instantiate `Google_Iam_V1_IAMPolicyClient`, then call methods of this protocol to make API calls.
+public protocol Google_Iam_V1_IAMPolicyClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Google_Iam_V1_IAMPolicyClientInterceptorFactoryProtocol? { get }
+
+  func setIamPolicy(
+    _ request: Google_Iam_V1_SetIamPolicyRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>
+
+  func getIamPolicy(
+    _ request: Google_Iam_V1_GetIamPolicyRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>
+
+  func testIamPermissions(
+    _ request: Google_Iam_V1_TestIamPermissionsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>
 }
 
-public final class Google_Iam_V1_IAMPolicyClient: GRPCClient, Google_Iam_V1_IAMPolicyClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-
-  /// Creates a client for the google.iam.v1.IAMPolicy service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  public init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
+extension Google_Iam_V1_IAMPolicyClientProtocol {
+  public var serviceName: String {
+    return "google.iam.v1.IAMPolicy"
   }
 
   /// Sets the access control policy on the specified resource. Replaces any
@@ -53,12 +82,18 @@ public final class Google_Iam_V1_IAMPolicyClient: GRPCClient, Google_Iam_V1_IAMP
   ///
   /// - Parameters:
   ///   - request: Request to send to SetIamPolicy.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func setIamPolicy(_ request: Google_Iam_V1_SetIamPolicyRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy> {
-    return self.makeUnaryCall(path: "/google.iam.v1.IAMPolicy/SetIamPolicy",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func setIamPolicy(
+    _ request: Google_Iam_V1_SetIamPolicyRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy> {
+    return self.makeUnaryCall(
+      path: "/google.iam.v1.IAMPolicy/SetIamPolicy",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetIamPolicyInterceptors() ?? []
+    )
   }
 
   /// Gets the access control policy for a resource.
@@ -67,12 +102,18 @@ public final class Google_Iam_V1_IAMPolicyClient: GRPCClient, Google_Iam_V1_IAMP
   ///
   /// - Parameters:
   ///   - request: Request to send to GetIamPolicy.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func getIamPolicy(_ request: Google_Iam_V1_GetIamPolicyRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy> {
-    return self.makeUnaryCall(path: "/google.iam.v1.IAMPolicy/GetIamPolicy",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func getIamPolicy(
+    _ request: Google_Iam_V1_GetIamPolicyRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy> {
+    return self.makeUnaryCall(
+      path: "/google.iam.v1.IAMPolicy/GetIamPolicy",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetIamPolicyInterceptors() ?? []
+    )
   }
 
   /// Returns permissions that a caller has on the specified resource.
@@ -85,25 +126,94 @@ public final class Google_Iam_V1_IAMPolicyClient: GRPCClient, Google_Iam_V1_IAMP
   ///
   /// - Parameters:
   ///   - request: Request to send to TestIamPermissions.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func testIamPermissions(_ request: Google_Iam_V1_TestIamPermissionsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse> {
-    return self.makeUnaryCall(path: "/google.iam.v1.IAMPolicy/TestIamPermissions",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  public func testIamPermissions(
+    _ request: Google_Iam_V1_TestIamPermissionsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse> {
+    return self.makeUnaryCall(
+      path: "/google.iam.v1.IAMPolicy/TestIamPermissions",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTestIamPermissionsInterceptors() ?? []
+    )
   }
-
 }
 
+public protocol Google_Iam_V1_IAMPolicyClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'setIamPolicy'.
+  func makeSetIamPolicyInterceptors() -> [ClientInterceptor<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when invoking 'getIamPolicy'.
+  func makeGetIamPolicyInterceptors() -> [ClientInterceptor<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when invoking 'testIamPermissions'.
+  func makeTestIamPermissionsInterceptors() -> [ClientInterceptor<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>]
+}
+
+public final class Google_Iam_V1_IAMPolicyClient: Google_Iam_V1_IAMPolicyClientProtocol {
+  public let channel: GRPCChannel
+  public var defaultCallOptions: CallOptions
+  public var interceptors: Google_Iam_V1_IAMPolicyClientInterceptorFactoryProtocol?
+
+  /// Creates a client for the google.iam.v1.IAMPolicy service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  public init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Google_Iam_V1_IAMPolicyClientInterceptorFactoryProtocol? = nil
+  ) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
+  }
+}
+
+/// ## API Overview
+///
+/// Manages Identity and Access Management (IAM) policies.
+///
+/// Any implementation of an API that offers access control features
+/// implements the google.iam.v1.IAMPolicy interface.
+///
+/// ## Data model
+///
+/// Access control is applied when a principal (user or service account), takes
+/// some action on a resource exposed by a service. Resources, identified by
+/// URI-like names, are the unit of access control specification. Service
+/// implementations can choose the granularity of access control and the
+/// supported permissions for their resources.
+/// For example one database service may allow access control to be
+/// specified only at the Table level, whereas another might allow access control
+/// to also be specified at the Column level.
+///
+/// ## Policy Structure
+///
+/// See google.iam.v1.Policy
+///
+/// This is intentionally not a CRUD style API because access control policies
+/// are created and deleted implicitly with the resources to which they are
+/// attached.
+///
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Google_Iam_V1_IAMPolicyProvider: CallHandlerProvider {
+  var interceptors: Google_Iam_V1_IAMPolicyServerInterceptorFactoryProtocol? { get }
+
   /// Sets the access control policy on the specified resource. Replaces any
   /// existing policy.
   func setIamPolicy(request: Google_Iam_V1_SetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+
   /// Gets the access control policy for a resource.
   /// Returns an empty policy if the resource exists and does not have a policy
   /// set.
   func getIamPolicy(request: Google_Iam_V1_GetIamPolicyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Google_Iam_V1_Policy>
+
   /// Returns permissions that a caller has on the specified resource.
   /// If the resource does not exist, this will return an empty set of
   /// permissions, not a NOT_FOUND error.
@@ -115,42 +225,59 @@ public protocol Google_Iam_V1_IAMPolicyProvider: CallHandlerProvider {
 }
 
 extension Google_Iam_V1_IAMPolicyProvider {
-  public var serviceName: String { return "google.iam.v1.IAMPolicy" }
+  public var serviceName: Substring { return "google.iam.v1.IAMPolicy" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  public func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  public func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "SetIamPolicy":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setIamPolicy(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Iam_V1_SetIamPolicyRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Iam_V1_Policy>(),
+        interceptors: self.interceptors?.makeSetIamPolicyInterceptors() ?? [],
+        userFunction: self.setIamPolicy(request:context:)
+      )
 
     case "GetIamPolicy":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getIamPolicy(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Iam_V1_GetIamPolicyRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Iam_V1_Policy>(),
+        interceptors: self.interceptors?.makeGetIamPolicyInterceptors() ?? [],
+        userFunction: self.getIamPolicy(request:context:)
+      )
 
     case "TestIamPermissions":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.testIamPermissions(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Google_Iam_V1_TestIamPermissionsRequest>(),
+        responseSerializer: ProtobufSerializer<Google_Iam_V1_TestIamPermissionsResponse>(),
+        interceptors: self.interceptors?.makeTestIamPermissionsInterceptors() ?? [],
+        userFunction: self.testIamPermissions(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+public protocol Google_Iam_V1_IAMPolicyServerInterceptorFactoryProtocol {
 
-// Provides conformance to `GRPCPayload` for request and response messages
-//extension Google_Iam_V1_SetIamPolicyRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_Policy: GRPCProtobufPayload {}
-//extension Google_Iam_V1_GetIamPolicyRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_TestIamPermissionsRequest: GRPCProtobufPayload {}
-//extension Google_Iam_V1_TestIamPermissionsResponse: GRPCProtobufPayload {}
+  /// - Returns: Interceptors to use when handling 'setIamPolicy'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetIamPolicyInterceptors() -> [ServerInterceptor<Google_Iam_V1_SetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when handling 'getIamPolicy'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetIamPolicyInterceptors() -> [ServerInterceptor<Google_Iam_V1_GetIamPolicyRequest, Google_Iam_V1_Policy>]
+
+  /// - Returns: Interceptors to use when handling 'testIamPermissions'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTestIamPermissionsInterceptors() -> [ServerInterceptor<Google_Iam_V1_TestIamPermissionsRequest, Google_Iam_V1_TestIamPermissionsResponse>]
+}
